@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CarryurCareer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>🎓 CarryurCareer</h1>
+
+  <div class="form">
+    <input type="number" id="rank" placeholder="Enter your rank" />
+
+    <select id="category">
+      <option value="GEN">GEN</option>
+      <option value="OBC">OBC</option>
+      <option value="SC">SC</option>
+      <option value="ST">ST</option>
+    </select>
+
+    <button onclick="predict()">Predict Colleges</button>
+  </div>
+
+  <table id="resultTable">
+    <thead>
+      <tr>
+        <th>College</th>
+        <th>Branch</th>
+        <th>Closing Rank</th>
+        <th>Chance</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>

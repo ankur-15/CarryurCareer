@@ -1,7 +1,16 @@
 from fastapi import FastAPI
-from predictor import predict_colleges
+from backend.predictor import predict_colleges
+
 
 app = FastAPI(title="CarryurCareer – Admission Predictor API")
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
