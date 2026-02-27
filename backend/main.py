@@ -1,25 +1,59 @@
 from fastapi import FastAPI
-from backend.predictor import predict_colleges
-
-
-app = FastAPI(title="CarryurCareer – Admission Predictor API")
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.routes import prediction
+from backend.routes import chatbot
+
+from backend.database import engine
+from backend.models import Base
+
+# -----------------------------
+# Create FastAPI App
+# -----------------------------
+app = FastAPI(
+    title="CarryurCareer API",
+    description="JEE Cutoff Intelligence + Gemini AI Career Assistant",
+    version="2.0.0"
+)
+
+# -----------------------------
+# Create DB Tables (DEV ONLY)
+# -----------------------------
+Base.metadata.create_all(bind=engine)
+
+# -----------------------------
+# CORS (restrict in production)
+# -----------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],  # ← your React dev URL
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# -----------------------------
+# Include Routers
+# -----------------------------
+app.include_router(
+    prediction.router,
+    prefix="/predict",
+    tags=["Prediction"]
+)
 
+app.include_router(
+    chatbot.router,
+    prefix="/chat",
+    tags=["Gemini AI Chatbot"]
+)
+
+# -----------------------------
+# Health Check
+# -----------------------------
 @app.get("/")
-def home():
-    return {"status": "CarryurCareer API is running"}
-
-@app.get("/predict")
-def predict(rank: int, category: str):
+def root():
     return {
-        "rank": rank,
-        "category": category.upper(),
-        "results": predict_colleges(rank, category.upper())
+        "status": "running",
+        "project": "CarryurCareer",
+        "version": "2.0",
+        "ai_model": "Gemini 2.0 Flash"
     }

@@ -1,14 +1,30 @@
 # Python
 __pycache__/
 *.pyc
-
-# Conda / venv
+*.pyo
 .env
-.venv
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Database
+*.db
+*.sqlite
+
+# Node / React
+node_modules/
+frontend/dist/
+frontend/build/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
 
 # Jupyter
 .ipynb_checkpoints/
-
-# OS
-.DS_Store
-Thumbs.db
